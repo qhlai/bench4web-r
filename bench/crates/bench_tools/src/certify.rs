@@ -1,0 +1,149 @@
+
+use std::time::{SystemTime, UNIX_EPOCH};
+
+use super::time_tools;
+
+static ADMIN_KEY : &str ="123a41313";
+//static Complie_file: i64=time_tools::time_stamp();
+static VALID_TIME : i64 =1657010198892+3600*24*1000*7; //ms
+pub fn key_certify(key:&str)->bool{
+    //let ADMIN_KEY: String=String::from("123a41313");
+    //if key.is_some() && key.unwrap()== ADMIN_KEY.to_string(){
+    if key== ADMIN_KEY{
+        //log::info!("Admin Key Enabled");
+        log::info!("Whitelist Disabled");
+        return true;
+    }else{
+        log::info!("Whitelist Enabled");
+        return false;
+    }
+} 
+pub fn slice_domain_from_url(url:String)->Result<String,String>{
+    //"https://www.google.com/213123"
+    //to
+    //www.google.com
+    let mut url_domain=url.clone();
+    //let find ="://";
+    let index_0=url_domain.find("://").ok_or("url should begin with http://// ".to_string())?;
+    log::debug!("{} find ;// at:{}",url_domain,index_0);
+    url_domain=url_domain[index_0+3..].to_string();
+    let index_1=url_domain.find("/").ok_or("url should end with // ".to_string())?;
+    
+    let index_2=url_domain.find("/").ok_or("url should end with // ".to_string())?;
+    
+    log::debug!("{} find / at:{}",url_domain,index_1);
+    url_domain=url_domain[..index_1].to_string();
+    log::debug!("slice url:{}",url_domain);    
+    return Ok(url_domain);
+}
+pub fn time_certify()->bool{
+    //println!("Now:{}",timestamp::time_stamp());
+    //log::info!("Now:{}",timestamp::time_stamp());
+    let now=time_tools::time_stamp();
+    log::info!("now:{}",now);
+    if now<=VALID_TIME{
+        //log::info!("Reamin:{} min",(VALID_TIME-now)/1000/60);
+        log::info!("Reamining:{} min",(VALID_TIME-now)/1000/60);
+        return true;
+    }
+    else{
+        log::warn!("this version is out of date,will not work,pls get new one");
+        return false;
+    }
+}
+pub fn certify(key:&str)->bool{
+    //println!("Now:{}",timestamp::time_stamp());
+    //let key=Some(String::from(ADMIN_KEY));
+    match  key_certify(key)&&time_certify(){
+        true=>{
+            log::info!("certify ok");
+            return true;
+        }
+        false=>{
+            log::info!("certify faild");
+            return false;
+        }
+    };
+}
+
+pub fn url_check_whitelist(url:String)->bool{
+
+    let url_domian=slice_domain_from_url(url.clone()).unwrap();
+    log::info!("url_domian:{}",&url_domian);
+    //match url_domian{
+    //    url_domian.find("allowed_domain").is_some()=>{
+     //   }
+    //}
+    if url_domian.find("allowed_domain").is_some() {
+        log::info!("certified ok, allowed_domain is in whitelist");
+        return true;
+    }
+    log::error!("{} not in whitelist.Certified Faild ",&url_domian);
+    return false;
+
+}
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use super::super::*;
+    #[test]
+    fn certify(){
+        println!("Now:{}",time_tools::time_stamp());
+        let key=ADMIN_KEY;
+        match  super::key_certify(key)&&super::time_certify(){
+            true=>{
+                println!("certify ok");
+            }
+            false=>{
+                println!("certify faild");
+            }
+        };
+    }
+    #[test]
+    fn key_certify() {
+        let key=ADMIN_KEY;
+        match super::key_certify(key){
+            true=>{
+                println!("key certified");
+            }
+            false=>{
+                println!("key wrong");
+            }
+        };
+    }
+    #[test]
+    fn time_certify() {
+        match super::time_certify(){
+            true=>{
+                println!("OK");
+            }
+            false=>{
+                println!("False");
+            }
+        };
+    }
+    #[test]
+    fn test_slice_domain_from_url() {
+        let url=String::from("https://www.google.com/213123");
+        match super::slice_domain_from_url(url){
+            Ok(a)=>{
+                println!("slice_domain_from_url:{}",a);
+            }
+            Err(a)=>{
+                println!("slice_domain_Error:{}",a);
+            }
+        };
+    }
+    #[test]
+    fn test_slice_domain_from_url_1() {
+        let url=String::from("https://www.google.com:123/213123");
+        match super::slice_domain_from_url(url){
+            Ok(a)=>{
+                println!("slice_domain_from_url:{}",a);
+            }
+            Err(a)=>{
+                println!("slice_domain_Error:{}",a);
+            }
+        };
+    }
+}

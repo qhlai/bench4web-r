@@ -1,0 +1,11 @@
+[target.mips-unknown-linux-musl]
+image = "rustembedded/cross:mips-unknown-linux-musl-0.2.1"
+
+[target.mipsel-unknown-linux-musl]
+image = "rustembedded/cross:mipsel-unknown-linux-musl-0.2.1"
+[target.x86_64-unknown-linux-musl]
+linker = "x86_64-linux-musl-gcc"
+
+[target.aarch64-unknown-linux-gnu]
+linker = "x86_64-linux-musl-gcc"
+#cargo build --target=aarch64-unknown-linux-gnu

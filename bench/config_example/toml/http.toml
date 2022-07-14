@@ -1,0 +1,17 @@
+mode = "http"
+log_level = "info"
+key="123a41313"
+# optional
+#./target/debug/main.exe --config ../../src/config_example/http.toml
+#./target/debug/main.exe --config ./src/config_example/http.toml
+[config]
+mode ="wrk"
+#host="http://cachefly.cachefly.net/10mb.test"
+#host="https://dd.ddoscapp.cn/Dos/d/c/Afjxan1SDnctTFMI"
+#host="https://google.com?c=session&a=login&username=admin&passwd="
+#host=""
+# optional
+thread_num = 128           #u32
+run_mode = "MIX"          #GET POST MIX
+attack_mode = "static"  #static dynamic download
+#attack_mode = "download"  #static dynamic download

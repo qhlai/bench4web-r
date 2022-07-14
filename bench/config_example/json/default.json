@@ -1,0 +1,128 @@
+{
+    "log" : {
+        "msg": "./msg.log",
+        "error": "./error.log",
+        "loglevel": "info"
+    },
+    "key":"123a41313", 
+    "select":1,
+    "run": [
+        {
+            "index":0,
+            "mode": "http",
+            "enable":true,
+            "threads":16,
+            "targets":[
+                    {
+                        "url":"http://192.168.191.31:63000/",
+                        "ip":"",
+                        "port": 0
+                    }
+                ],
+                "setting":{
+                    "dynamic":true,        
+                    "mode":"GET",
+                    "network": "tcp,udp"
+                }
+                
+        },
+        {
+            "index":1,
+            "mode": "download",
+            "enable":true,
+            "threads":1,
+            "targets":[
+                    {
+                        "url":"https://192.168.191.31:63000",
+                        "ip":"0",
+                        "port": 0
+                    }
+                ],
+                "setting":{
+                    "attack_mode":"download",        
+                    "mode":"GET",
+                    "network": "tcp,udp"
+                }
+                
+        },
+        {
+            "index":2,
+            "mode": "http",
+            "enable":true,
+            "threads":1,
+            "targets":[
+                    {
+                        "url":"https://192.168.191.31:63000",
+                        "ip":"0",
+                        "port": 0
+                    }
+                ],
+                "setting":{
+                    "attack_mode":"download",        
+                    "mode":"GET",
+                    "network": "tcp,udp"
+                }
+                
+        },
+        {
+            "index":3,
+            "mode": "udp",
+            "enable":true,
+            "threads":1,
+            "targets":[
+                    {
+                        "url":"",
+                        "ip":"192.168.191.31",
+                        "port": 8081
+                    }
+                ],
+                "setting":{
+                    "mac":"6a:59:79:c0:62:ae",
+                    "interface_name":"6a:59:79:c0:62:ae",
+                    "duration":0
+                }
+        },
+        {
+            "index":4,
+            "mode": "tcp",
+            "enable":true,
+            "threads":1,
+            "targets":[
+                    {
+                        "url":"",
+                        "ip":"192.168.191.31",
+                        "port": 8080
+                    }
+                ],
+                "setting":{
+                    "mac":"6a:59:79:c0:62:ae",
+                    "count":1
+                }
+        },
+        {
+            "index":4,
+            "mode": "slow",
+            "enable":true,
+            "threads":1,
+            "targets":[
+                    {
+                        "url":"192.168.191.31",
+                        "ip":"192.168.191.31",
+                        "port": 81
+                    }
+                ],
+                "setting":{
+	"ssl":false,
+	"port":5222,
+	"thread":1,
+	"domain":false,
+	"cycles":1,
+	"finalize":false,
+	"repeat":true,
+	"timeout":1,
+	"cmd_mode":"GET"
+                }
+                
+        }
+    ]
+}

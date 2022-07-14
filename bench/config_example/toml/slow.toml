@@ -1,0 +1,19 @@
+mode = "slow"
+log_level = "info"
+key="123a41313"
+# optional
+#./target/debug/main.exe --config ../../src/config_example/http.toml
+#./target/debug/main.exe --config ./src/config_example/http.toml
+[config]
+# optional
+target="http://google.com"
+ssl=false
+port=5222
+thread=1
+cycles=1
+finalize=false
+repeat=true
+timeout=1
+cmd_mode="GET"
+
+

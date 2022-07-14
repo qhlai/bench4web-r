@@ -1,0 +1,15 @@
+#./target/debug/main.exe --config ../../src/config_example/tcp.toml
+#./target/debug/main.exe --config ./src/config_example/tcp.toml
+mode = "udp"
+log_level = "info"
+key="123a41313"
+
+
+[config]
+##only ip,domain todo
+target="192.168.1.1:80"
+##optional
+thread=1
+ports_per_thread=20
+duration=0
+

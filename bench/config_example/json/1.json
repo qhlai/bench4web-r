@@ -1,0 +1,33 @@
+{
+    "key":"12a3",
+    "log" : {
+        "msg": "./msg.log",
+        "error": "./error.log",
+        "loglevel": "warning"
+    },
+    "run": [
+        {
+            "mode": "http",
+            "enable":false,
+            "threads":1,
+            "targets":[
+                    {
+                        "url":"example1.com",
+                        "ip":"127.0.0.1",
+                        "port": 80
+                    },
+                    {
+                        "url":"example2.com",
+                        "ip":"127.0.0.1",
+                        "port": 80
+                    }
+                ],
+                "http_setting":{
+                    "dynamic":true,        
+                    "request_mode":"MIX",
+                    "network": "tcp,udp"
+                }
+                
+        }
+    ]
+}

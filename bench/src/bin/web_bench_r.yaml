@@ -1,0 +1,59 @@
+name: WebBench-r
+version: "0.2.0"
+author: Developed by @Eli
+about: WebBench Tools use Rust-lang. Only For Test
+
+args:
+  - url:
+      short: url
+      long: target_url
+      help: benchmark target
+      index: 1
+      default_value: "127.0.0.1"
+      takes_value: true
+      required: false
+  - connections:
+      short: c
+      long: connections
+      help: number of concurrent HTTP connections
+      default_value: "1"
+      takes_value: true
+      required: false
+  - duration:
+      short: d
+      long: duration
+      help: duration of the test in seconds
+      default_value: "10"
+      takes_value: true
+      required: false
+  - threads:
+      short: t
+      long: threads
+      help: total number of threads to use
+      default_value: "1"
+      takes_value: true
+      required: false
+  - header:
+      short: H
+      long: header
+      help: 'HTTP header to add to request, e.g. "User-Agent: wrk"'
+      takes_value: true
+      multiple: true
+      number_of_values: 1
+      required: false
+  - timeout:
+      short: T
+      long: timeout
+      help: response timeout in milliseconds
+      default_value: "3000"
+      takes_value: true
+      required: false
+  - config:
+      short: C
+      long: config
+      required: false
+      takes_value: 
+      help: .json config file name
+      default_value: "./default.json"
+      takes_value: true
+      required: false

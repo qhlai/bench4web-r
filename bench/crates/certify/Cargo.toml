@@ -1,0 +1,22 @@
+[package]
+name = "certify"
+version = "0.0.1"
+edition = "2021"
+authors = ["qhlai <qhlai666@gmail.com>"]
+description = "web bench rust"
+repository = "https://github.com/"
+readme = "README.md"
+documentation = "https://docs.rs/"
+keywords = ["bench", "web", "http"]
+license = "Apache Licene 2.0"
+build = "src/build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+shadow-rs = "0.12.0"#build-time information stored in your rust project.(binary,lib,cdylib,dylib)
+clap = "3.1.0"
+chrono="*"
+
+[build-dependencies]
+shadow-rs = "0.12.0"#build-time information stored in your rust project.(binary,lib,cdylib,dylib)

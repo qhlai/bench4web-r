@@ -1,0 +1,140 @@
+[package]
+name = "bench_tools"
+version = "0.1.2"
+edition = "2021"
+authors = ["qhlai <qhlai666@gmail.com>"]
+description = "web bench rust"
+repository = "https://github.com/"
+readme = "README.md"
+documentation = "https://docs.rs/"
+keywords = ["bench", "web", "http"]
+license = "Apache Licene 2.0"
+
+
+
+#[workspace]
+#members = [
+    #"crates/shadowsocks",
+    #"crates/shadowsocks-service",
+#]
+
+#[[bin]]
+#name = "webbench-rs"
+#path = "bin/sslocal.rs"
+#required-features = ["local"]
+
+[dependencies]
+rand = "0.8.5"
+#GBK
+encoding = "^0.2"
+
+tokio = { version = "^1.6", features = ["full","rt-multi-thread"] }
+#tokio = { version = "0.2.6", features = ["macros", "io-std", "time", "rt-core", "rt-threaded"] }
+tokio-rustls = "^0.22"
+tokio-tungstenite = "^0.14"
+
+actix-files = "^0.2.2"
+actix-web={version = "^2.0.0", features=["rustls"]}
+actix-rt="^1"
+actix-session="^0.3"
+
+#anyhow = "^1.0.34"
+#post
+reqwest = { version = "^0.11", features = ["blocking","json", "rustls-tls"] }
+
+#log
+chrono = "^0.4"
+log = { version = "*", features = ["std"] }
+colog = "1.1.0"
+env_logger = "0.8"
+#log4rs="^0.12"
+
+url = "^2.1"
+domain="*"
+#lazy_static = "^1.4.0"
+#json
+serde = "*"
+serde_derive = "*"
+serde_json = "*"
+#json="*"
+
+futures = { version = "^0.3.8", features = ["async-await"] }
+futures-core = "^0.3"
+futures-util = "^0.3"
+futures-timer = "^1.0.2"
+
+async-std = { version = "^1.9.0", features = ["std"] }
+async-trait = "^0.1"
+##系统占用
+#systemstat="^0.1.8"
+
+#download
+data-encoding = "^2.3"
+pbr = "^1.0"
+hyper = "^0.14"
+hyper-tls = "0.4"
+digest = "^0.9"
+sha2 = "^0.9"
+sha-1 = "^0.9"
+
+crossbeam-channel = "0.4"
+crossbeam-utils = "0.7"
+ctrlc = "3.1"
+
+#hdrhistogram = "6.3"
+#http = "0.2"
+systemstat = "^0.1.10"
+##tcp
+#https://crates.io/crates/pnet windows must
+pnet = "0.31.0"
+pnet_base = "0.31.0"
+pnet_datalink = "0.31.0"
+pnet_packet = "0.31.0"
+pnet_transport = "0.31.0"
+#ping = { version = "0.4.0", path = "./crates/ping" }
+
+quick-error = "*"
+structopt = "*"
+##slow
+num_cpus = "1"
+#log = "0.3"
+#env_logger = "0.4.0"
+rustc-serialize = "0.3"
+docopt = "0.7"
+rustls = "0.20.6"
+rustls-native-certs = "0.6.2"
+webpki = "^0.21"
+webpki-roots = "^0.22.3"
+certify={ version = "*", path = "../certify" }
+##config
+toml = "^0.5"
+clap = { version = "^2.33", features = ["yaml"] }
+
+[dev-dependencies]
+#rand = "0.3"
+[profile.release]
+opt-level=3
+lto = "fat"
+codegen-units=2
+panic="abort"
+
+#[target.x86_64-unknown-linux-musl]
+#linker = "rust-lld"
+
+
+[features]
+default = ["full"]
+
+http_mode = []
+download_mode = []
+tcp_mode = []
+udp_mode = []
+slow_mode=[]
+certify=[]
+
+application_layer=["http_mode","slow_mode","download_mode"]
+transport_layer=["tcp_mode","udp_mode"]
+other_function=["certify"]
+
+
+full = ["application_layer", "transport_layer","other_function"]
